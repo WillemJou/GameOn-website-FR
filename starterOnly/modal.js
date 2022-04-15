@@ -17,16 +17,19 @@ const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector(".close");
 let error;
 let dataError = document.getElementsByClassName("dataError");
-const first = document.getElementById("first");
-const last = document.getElementById("last");
-const email = document.getElementById("email");
-const form = document.querySelector("reserve");
+const errorMessage = document.getElementsByClassName("error_message");
+const firstName = document.getElementById("first");
+const lastName = document.getElementById("last");
+const emailValidation = document.getElementById("email");
+const validateForm = document.getElementById("validate");
 const birthdate = document.getElementById("birthdate");
 const quantity = document.getElementById("quantity");
 const checkbox = document.getElementById("checkbox1");
-const locationPlace = document.getElementsByTagName("location","location2","location3","location4","location5","location6");
-let emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+let emailPattern =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+let locationPlace = document.querySelectorAll("location");
 let locationArray = ["location","location2","location3","location4","location5","location6"];
+let requiredElements = document.querySelectorAll("input[required]");
+let validDate = Date.parse('03/17/21');
 
 
 
@@ -51,86 +54,50 @@ function closeModal(){
   modalbg.style.display = "none";
 }
 
-//fonction prénom+message d'erreur
 
-function firstCondition(a){
-  if (first.value==""){
-  
-    alert("Veuillez renseigner un prénom");
-    return false;}
 
-  else if (first.length<"2"){
-    alert("Veuillez entrer 2 caractères ou plus pour le champ de prénom");
-    return false;}
 
-  else {
-    return true;}  
-}
 
-//fonction nom+message d'erreur
 
-function lastCondition(b){
-  if(last.length<"2"){
-    alert("Veuillez entrer 2 caractères ou plus pour le champ de nom"); 
-    return false;}
-  
-  else if (last==""){
-      alert("Veuillez renseigner un nom");
-      return false;}
-  
-  else {
-    return true;}    
-}   
- 
-//fonction email+message d'erreur
 
-function emailCondition(c){
-  if (emailValidation.test(email) == false){
+//fonction message d'erreur validation email
+
+function emailValidationCondition(){
+  if (emailPattern.test(emailValidation) === false){
     alert("Veuillez renseigner une adresse email valide");
     return false;}
 
-  else {
-    return true;}
-}
- 
-//condition date+message d'erreur    
-
-if (birthdate=="") {
-  alert("Vous devez entrer votre date de naissance");
+    {return true;}
 }
 
 
-//condition tournoi+message d'erreur
 
-if (quantity==""){
-  alert("Vous devez entrer un nombre");  
+//fonction message d'erreur validation prénom+nom
+
+var nameCondition = function(){
+  if(firstName.value.length<2 || lastName.value.length<2){
+    alert("Veuillez renseigner au minimum deux caractères");
+    return false;}
+
+  { return true;}  
 }
 
-//condition location+message d'erreur
+//fonction message d'erreur validation birthdate
 
-if (locationArray=""){
-  alert("Vous devez choisir une ville");
+function birthdateValidation(){
+  
+  if(validDate=(birthdate)){
+    alert("Veuillez entrer une date valide");
+    return false;}
+
+  {return true;}  
 }
 
-//condition checkbox+message d'erreur
+console.log (birthdateValidation());
 
-if (checkbox1.checked==false){
-  alert("Vous devez vérifier que vous acceptez les termes et conditions.");}
- 
 
-// fonction affichage boite message erreur
 
-function revealErrorContainer(r){
-  if (a, b, c=false){ 
-    dataError = true;}
-}
 
-// fonction validate sur Onsubmit
-
-function validate(){
-  if(a, b, c=true){
-    return true;}
-}
 
 
 

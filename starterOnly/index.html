@@ -56,11 +56,12 @@
         <div class="content">
           <span class="close"></span>
           <div class="modal-body">
-            <form            
+            <form   
+              novalidate
               name="reserve"
               action="index.html"
               method="get"
-              onsubmit=" return validate();"
+              id="validate"
             >
               <div
                 class="formData">
@@ -70,8 +71,12 @@
                   type="text"
                   id="first"
                   name="first"
+                  required
                              
-                /><br>
+                /><br> 
+                <span class="none">
+                  Veuillez entrer deux caractères ou plus pour le champ
+                </span>
               </div>
               <div
                 class="formData">
@@ -81,7 +86,7 @@
                   type="text"
                   id="last"
                   name="last"
-                  
+                  required
                 /><br>
               </div>
               <div
@@ -92,7 +97,7 @@
                   type="email"
                   id="email"
                   name="email"
-                  
+                  required
                   
                 /><br>
               </div>
@@ -104,6 +109,7 @@
                   type="date"
                   id="birthdate"
                   name="birthdate"
+                  
                 /><br>
               </div>
               <div
@@ -119,7 +125,9 @@
                   type="radio"
                   id="location1"
                   name="location"
-                  value="New York"/>
+                  value="New York"
+                  
+                  />
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
                   New York</label
@@ -130,6 +138,7 @@
                   id="location2"
                   name="location"
                   value="San Francisco"
+                  
                 />
                 <label class="checkbox-label" for="location2">
                   <span class="checkbox-icon"></span>
@@ -185,6 +194,7 @@
                   type="checkbox"
                   id="checkbox1"
                   checked
+                  
                 />
                 <label class="checkbox2-label" for="checkbox1" >
                   <span class="checkbox-icon"></span>
@@ -194,7 +204,7 @@
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
-                  Je Je souhaite être prévenu des prochains évènements.
+                  Je souhaite être prévenu des prochains évènements.
                 </label>
                 <br>
               </div>
@@ -202,7 +212,9 @@
                 class="btn-submit"
                 type="submit"
                 class="button"
+                method="get"
                 value="C'est parti"
+                
               />
             </form>
           </div>
