@@ -22,14 +22,17 @@ const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
 const emailValidation = document.getElementById("email");
 const validateForm = document.getElementById("validate");
-const birthdate = document.getElementById("birthdate");
+const birthdate = document.querySelector("input[date]");
 const quantity = document.getElementById("quantity");
 const checkbox = document.getElementById("checkbox1");
 let emailPattern =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 let locationPlace = document.querySelectorAll("location");
 let locationArray = ["location","location2","location3","location4","location5","location6"];
 let requiredElements = document.querySelectorAll("input[required]");
-let validDate = Date.parse('03/17/21');
+const startDate =  new Date(1899,05,05);
+const finalDate =  new Date(2018,05,05);
+
+
 
 
 
@@ -55,11 +58,6 @@ function closeModal(){
 }
 
 
-
-
-
-
-
 //fonction message d'erreur validation email
 
 function emailValidationCondition(){
@@ -69,8 +67,6 @@ function emailValidationCondition(){
 
     {return true;}
 }
-
-
 
 //fonction message d'erreur validation prénom+nom
 
@@ -82,48 +78,18 @@ var nameCondition = function(){
   { return true;}  
 }
 
-//fonction message d'erreur validation birthdate
+//fonction changement type date
 
-function birthdateValidation(){
-  
-  if(validDate=(birthdate)){
-    alert("Veuillez entrer une date valide");
+function dateFormatting(){
+  let validDate = Date.parse("17/04/04");}
+
+// fonction définir intervalles date validées
+
+function intervalBirthdate(){
+  if (birthdate > finalDate || birthdate < startDate){
+    alert("Veuillez entrer une date valide"); 
     return false;}
 
-  {return true;}  
-}
+    {return true;}}
 
 console.log (birthdateValidation());
-
-
-
-
-
-
-
-   
-
-  
-
-
-
-
- 
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
