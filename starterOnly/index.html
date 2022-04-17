@@ -62,6 +62,7 @@
               action="index.html"
               method="get"
               id="validate"
+              
             >
               <div
                 class="formData">
@@ -72,9 +73,10 @@
                   id="first"
                   name="first"
                   required
-                             
+                           
                 /><br> 
-                <span class="none">
+                <span class="error_message"
+                      id="error_message_firstname">
                   Veuillez entrer deux caractères ou plus pour le champ
                 </span>
               </div>
@@ -88,6 +90,10 @@
                   name="last"
                   required
                 /><br>
+                <span class="error_message"
+                  id="error_message_lastname">
+                    Veuillez entrer deux caractères ou plus pour le champ
+                </span>
               </div>
               <div
                 class="formData">
@@ -100,6 +106,10 @@
                   required
                   
                 /><br>
+                <span class="error_message"
+                      id="error_message_email">
+                  Veuillez entrer une adresse email valide
+                </span>
               </div>
               <div
                 class="formData">
@@ -109,7 +119,7 @@
                   type="date"
                   id="birthdate"
                   name="birthdate"
-                  min="1890-01-01" max="2018-12-31"
+                  
                 /><br>
               </div>
               <div
@@ -212,6 +222,7 @@
                 class="btn-submit"
                 type="submit"
                 class="button"
+                id="send_button"
                 method="get"
                 value="C'est parti"
                 

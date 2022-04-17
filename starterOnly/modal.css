@@ -213,7 +213,6 @@ input {
 }
 
 .error_message{
-  display: block;
   font-size: 0.7em;
   color: #e54858;
   display: block;
@@ -222,8 +221,8 @@ input {
   line-height: 1;
   opacity: 1;
   transition: 0.3s;
+  display: none;
 }
-
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 0.4em;

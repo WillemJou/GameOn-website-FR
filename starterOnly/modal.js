@@ -31,6 +31,11 @@ let locationArray = ["location","location2","location3","location4","location5",
 let requiredElements = document.querySelectorAll("input[required]");
 const startDate =  new Date(1899,05,05);
 const finalDate =  new Date(2018,05,05);
+let radioButtons = document.querySelectorAll("input[location]");
+const sendButtonValidation = document.getElementById("send_button");
+const errorMessageFirstname = document.getElementById("error_message_firstname");
+const errorMessageLastname = document.getElementById("error_message_lastname");
+const errorMessageEmail = document.getElementById("error_message_email");
 
 
 
@@ -58,38 +63,21 @@ function closeModal(){
 }
 
 
-//fonction message d'erreur validation email
-
-function emailValidationCondition(){
-  if (emailPattern.test(emailValidation) === false){
-    alert("Veuillez renseigner une adresse email valide");
-    return false;}
-
-    {return true;}
-}
+validateForm.addEventListener("submit", (e)=>{
+  
 
 //fonction message d'erreur validation prénom+nom
-
-var nameCondition = function(){
-  if(firstName.value.length<2 || lastName.value.length<2){
-    alert("Veuillez renseigner au minimum deux caractères");
-    return false;}
-
-  { return true;}  
-}
-
-//fonction changement type date
-
-function dateFormatting(){
-  let validDate = Date.parse("17/04/04");}
-
-// fonction définir intervalles date validées
-
-function intervalBirthdate(){
-  if (birthdate > finalDate || birthdate < startDate){
-    alert("Veuillez entrer une date valide"); 
-    return false;}
-
-    {return true;}}
-
-console.log (birthdateValidation());
+  if(firstName.value.length<2){
+  e.preventDefault();
+  errorMessageFirstname.style.display ="block";
+  }
+  if(lastName.value.length<2){
+    e.preventDefault();
+    errorMessageLastname.style.display ="block";
+  }
+//fonction message d'erreur validation email  
+  if (emailPattern.test(emailValidation) === false){
+    e.preventDefault();
+    errorMessageEmail.style.display ="block";
+  }
+})
