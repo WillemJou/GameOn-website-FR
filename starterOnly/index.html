@@ -77,7 +77,7 @@
                 /><br> 
                 <span class="error_message"
                       id="error_message_firstname">
-                  Veuillez entrer deux caractères ou plus pour le champ
+                  Veuillez entrer deux caractères ou plus pour ce champ
                 </span>
               </div>
               <div
@@ -92,7 +92,7 @@
                 /><br>
                 <span class="error_message"
                   id="error_message_lastname">
-                    Veuillez entrer deux caractères ou plus pour le champ
+                    Veuillez entrer deux caractères ou plus pour ce champ
                 </span>
               </div>
               <div
@@ -121,11 +121,19 @@
                   name="birthdate"
                   
                 /><br>
+                <span class="error_message"
+                id="error_message_birthdate">
+            Veuillez entrer une date de naissance valide
+          </span>
               </div>
               <div
                 class="formData">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+                <span class="error_message"
+                id="error_message_tournament">
+            Veuillez entrer un nombre valide
+          </span>
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
@@ -136,7 +144,7 @@
                   id="location1"
                   name="location"
                   value="New York"
-                  
+                  checked
                   />
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
@@ -148,7 +156,7 @@
                   id="location2"
                   name="location"
                   value="San Francisco"
-                  
+                  checked
                 />
                 <label class="checkbox-label" for="location2">
                   <span class="checkbox-icon"></span>
@@ -160,6 +168,7 @@
                   id="location3"
                   name="location"
                   value="Seattle"
+                  checked
                 />
                 <label class="checkbox-label" for="location3">
                   <span class="checkbox-icon"></span>
@@ -170,7 +179,8 @@
                   type="radio"
                   id="location4"
                   name="location"
-                  value="Chicago"/>
+                  value="Chicago"
+                  checked/>
                 <label class="checkbox-label" for="location4">
                   <span class="checkbox-icon"></span>
                   Chicago</label>
@@ -179,7 +189,8 @@
                   type="radio"
                   id="location5"
                   name="location"
-                  value="Boston"/>
+                  value="Boston"
+                  checked/>
                 <label class="checkbox-label" for="location5">
                   <span class="checkbox-icon"></span>
                   Boston</label
@@ -190,11 +201,12 @@
                   id="location6"
                   name="location"
                   value="Portland"
+                  checked
                 />
                 <label class="checkbox-label" for="location6">
                   <span class="checkbox-icon"></span>
-                  Portland</label
-                >
+                  Portland</label>
+                 
               </div>
 
               <div
@@ -204,12 +216,13 @@
                   type="checkbox"
                   id="checkbox1"
                   checked
-                  
+
                 />
                 <label class="checkbox2-label" for="checkbox1" >
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
+                <span class="error_message" id="error_message_conditions">Vous devez valider les conditions d'utilisations</span>
                 <br>
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
                 <label class="checkbox2-label" for="checkbox2">

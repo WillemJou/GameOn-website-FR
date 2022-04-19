@@ -22,42 +22,40 @@ const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
 const emailValidation = document.getElementById("email");
 const validateForm = document.getElementById("validate");
-const birthdate = document.querySelector("input[date]");
 const quantity = document.getElementById("quantity");
 const checkbox = document.getElementById("checkbox1");
-let emailPattern =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+const birthdate = document.getElementById("birthdate").value;
+const convertBirthdate = Date.parse(birthdate);
 let locationPlace = document.querySelectorAll("location");
-let locationArray = ["location","location2","location3","location4","location5","location6"];
+let locationArray = document.getElementById["location","location2","location3","location4","location5","location6"];
 let requiredElements = document.querySelectorAll("input[required]");
-const startDate =  new Date(1899,05,05);
-const finalDate =  new Date(2018,05,05);
 let radioButtons = document.querySelectorAll("input[location]");
 const sendButtonValidation = document.getElementById("send_button");
 const errorMessageFirstname = document.getElementById("error_message_firstname");
 const errorMessageLastname = document.getElementById("error_message_lastname");
 const errorMessageEmail = document.getElementById("error_message_email");
-
+const errorMessageConditions = document.getElementById("error_message_conditions");
+const errorMessageLocations = document.getElementById("error_message_locations");
+const errorMessageTournament = document.getElementById("error_message_tournament");
+const errorMessageBirthdate = document.getElementById("error_message_birthdate");
 
 
 
 
 
 // launch modal event
-
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
-
 closeBtn.addEventListener("click", closeModal);
 
 // launch modal form
-
 function launchModal() {
   modalbg.style.display = "block";
 }
 
 // close modal form
-
 function closeModal(){
   modalbg.style.display = "none";
 }
@@ -65,19 +63,54 @@ function closeModal(){
 
 validateForm.addEventListener("submit", (e)=>{
   
-
-//fonction message d'erreur validation prénom+nom
-  if(firstName.value.length<2){
+//message d'erreur validation prénom+nom
+if(firstName.value.length<2){
   e.preventDefault();
   errorMessageFirstname.style.display ="block";
   }
+else {
+  errorMessageFirstname.style.display ="none";
+}
   if(lastName.value.length<2){
     e.preventDefault();
     errorMessageLastname.style.display ="block";
   }
-//fonction message d'erreur validation email  
+  else {
+    errorMessageLastname.style.display ="none";
+  }
+
+//message d'erreur validation email  
   if (emailPattern.test(emailValidation) === false){
     e.preventDefault();
     errorMessageEmail.style.display ="block";
   }
-})
+  else {
+    errorMessageEmail.style.display ="none";
+  }
+
+//message d'erreur validation conditions
+  if(checkbox.checked === false){
+    e.preventDefault();
+    errorMessageConditions.style.display ="block";
+  }
+  else {
+    errorMessageConditions.style.display ="none";
+  } 
+
+// validation nombre de tournoi
+if(isNaN(quantity)){
+  e.preventDefault();
+  errorMessageTournament.style.display ="block";
+}
+else if((quantity.value<0)||(quantity.value>99)){
+  e.preventDefault();
+  errorMessageTournament.style.display ="block";
+}
+else{
+  errorMessageTournament.style.display ="none";
+}
+
+// message erreur validation date de naissance
+
+
+})      
