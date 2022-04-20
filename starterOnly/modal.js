@@ -20,11 +20,11 @@ let dataError = document.getElementsByClassName("dataError");
 const errorMessage = document.getElementsByClassName("error_message");
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
-const emailValidation = document.getElementById("email");
+const email = document.getElementById("email");
 const validateForm = document.getElementById("validate");
 const quantity = document.getElementById("quantity");
 const checkbox = document.getElementById("checkbox1");
-let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const birthdate = document.getElementById("birthdate").value;
 const convertBirthdate = Date.parse(birthdate);
 let locationPlace = document.querySelectorAll("location");
@@ -39,6 +39,7 @@ const errorMessageConditions = document.getElementById("error_message_conditions
 const errorMessageLocations = document.getElementById("error_message_locations");
 const errorMessageTournament = document.getElementById("error_message_tournament");
 const errorMessageBirthdate = document.getElementById("error_message_birthdate");
+var letterNumber = /^[0-9a-zA-Z]+$/;
 
 
 
@@ -53,7 +54,7 @@ closeBtn.addEventListener("click", closeModal);
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-}
+} 
 
 // close modal form
 function closeModal(){
@@ -61,55 +62,34 @@ function closeModal(){
 }
 
 
+
+ 
+
 validateForm.addEventListener("submit", (e)=>{
+  e.preventDefault();
   
+
+// essaye utiliser array
+const validateFirstname = (firstName) => {
+  return firstName.length > 2 && firstName.value.match(letterNumber);
+}
+const validateLastname = (lastName) => {
+  return lastName.length > 2 && lastName.value.match(letterNumber);
+}
+const validateEmail = (email) => {
+  return (emailPattern.test(email))
+}
+const validateCheckBox = (checkbox) =>{
+  return (checkbox.checked === false)
+}
+
+const validateTournament = (quantity) => {
+  return (!isNaN(quantity) && quantity.value < 0 || quantity.value > 99);
+}
 //message d'erreur validation prénom+nom
-if(firstName.value.length<2){
-  e.preventDefault();
-  errorMessageFirstname.style.display ="block";
-  }
-else {
-  errorMessageFirstname.style.display ="none";
-}
-  if(lastName.value.length<2){
-    e.preventDefault();
-    errorMessageLastname.style.display ="block";
-  }
-  else {
-    errorMessageLastname.style.display ="none";
-  }
-
 //message d'erreur validation email  
-  if (emailPattern.test(emailValidation) === false){
-    e.preventDefault();
-    errorMessageEmail.style.display ="block";
-  }
-  else {
-    errorMessageEmail.style.display ="none";
-  }
-
 //message d'erreur validation conditions
-  if(checkbox.checked === false){
-    e.preventDefault();
-    errorMessageConditions.style.display ="block";
-  }
-  else {
-    errorMessageConditions.style.display ="none";
-  } 
-
 // validation nombre de tournoi
-if(isNaN(quantity)){
-  e.preventDefault();
-  errorMessageTournament.style.display ="block";
-}
-else if((quantity.value<0)||(quantity.value>99)){
-  e.preventDefault();
-  errorMessageTournament.style.display ="block";
-}
-else{
-  errorMessageTournament.style.display ="none";
-}
-
 // message erreur validation date de naissance
 
 
