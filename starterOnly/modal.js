@@ -63,13 +63,21 @@ function closeModal(){
 
 
 
+
  
 
 validateForm.addEventListener("submit", (e)=>{
   e.preventDefault();
-  
 
-// essaye utiliser array
+let el = { errorMessageFirstname, 
+           errorMessageLastname,
+           errorMessageEmail,
+           errorMessageBirthdate, 
+           errorMessageConditions, 
+           errorMessageTournament,
+        }
+
+  
 const validateFirstname = (firstName) => {
   return firstName.length > 2 && firstName.value.match(letterNumber);
 }
@@ -82,15 +90,46 @@ const validateEmail = (email) => {
 const validateCheckBox = (checkbox) =>{
   return (checkbox.checked === false)
 }
-
 const validateTournament = (quantity) => {
   return (!isNaN(quantity) && quantity.value < 0 || quantity.value > 99);
 }
-//message d'erreur validation prénom+nom
-//message d'erreur validation email  
-//message d'erreur validation conditions
-// validation nombre de tournoi
-// message erreur validation date de naissance
 
+
+const array = [
+  {
+    
+  key: firstName,
+  fn:()=>validateFirstname(firstName),
+  el: errorMessageFirstname,
+  
+  key: lastName,
+  fn:()=>validateLastname(lastName),
+  el: errorMessageLastname,
+
+  key: email,
+  fn:()=>validateEmail(email),
+  el: errorMessageEmail,
+
+  key: birthdate,
+  fn:()=>validateBirthdate(birthdate),
+  el: errorMessageBirthdate,
+
+  key: checkbox,
+  fn:()=>validateCheckBox(checkbox),
+  el: errorMessageConditions,
+  
+  key: quantity,
+  fn:()=>validateTournament(quantity),
+  el: errorMessageTournament,
+  }, 
+];
+
+array.forEach((item)=>{
+  console.log(item.key, item.fn());
+  el.style.display = item.fn() ? "none" : "block";
+}); 
 
 })      
+
+
+
