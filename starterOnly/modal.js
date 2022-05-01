@@ -15,8 +15,6 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector(".close");
-let error;
-let dataError = document.getElementsByClassName("dataError");
 const errorMessage = document.getElementsByClassName("error_message");
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
@@ -24,13 +22,7 @@ const email = document.getElementById("email");
 const validateForm = document.getElementById("validate");
 const quantity = document.getElementById("quantity");
 const checkbox = document.getElementById("checkbox1");
-let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const birthdate = document.getElementById("birthdate").value;
-const convertBirthdate = Date.parse(birthdate);
-let locationPlace = document.querySelectorAll("location");
-let locationArray = document.getElementById["location","location2","location3","location4","location5","location6"];
-let requiredElements = document.querySelectorAll("input[required]");
-let radioButtons = document.querySelectorAll("input[location]");
+const birthdate = document.getElementById("birthdate");
 const sendButtonValidation = document.getElementById("send_button");
 const errorMessageFirstname = document.getElementById("error_message_firstname");
 const errorMessageLastname = document.getElementById("error_message_lastname");
@@ -39,7 +31,6 @@ const errorMessageConditions = document.getElementById("error_message_conditions
 const errorMessageLocations = document.getElementById("error_message_locations");
 const errorMessageTournament = document.getElementById("error_message_tournament");
 const errorMessageBirthdate = document.getElementById("error_message_birthdate");
-var letterNumber = /^[0-9a-zA-Z]+$/;
 
 
 
@@ -67,67 +58,67 @@ function closeModal(){
  
 
 validateForm.addEventListener("submit", (e)=>{
-  e.preventDefault();
-
-let el = { errorMessageFirstname, 
-           errorMessageLastname,
-           errorMessageEmail,
-           errorMessageBirthdate, 
-           errorMessageConditions, 
-           errorMessageTournament,
-        }
-
   
 const validateFirstname = (firstName) => {
-  return firstName.length > 2 && firstName.value.match(letterNumber);
-}
+  return firstName.textLength >= 2 ;
+}  
 const validateLastname = (lastName) => {
-  return lastName.length > 2 && lastName.value.match(letterNumber);
+  return lastName.textLength >= 2 ;
 }
 const validateEmail = (email) => {
-  return (emailPattern.test(email))
+  let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+ return (emailPattern.test(email));
 }
 const validateCheckBox = (checkbox) =>{
-  return (checkbox.checked === false)
+  return (checkbox.checked === true)
 }
 const validateTournament = (quantity) => {
-  return (!isNaN(quantity) && quantity.value < 0 || quantity.value > 99);
+  return (quantity.value >= 1 && quantity.value < 99);
+}
+const validateBirthdate = (birthdate) => {
+  var currentDate = new Date();   
+  var majority = currentDate.setFullYear(new Date().getFullYear() - 18);
+  var olderAge = currentDate.setFullYear(new Date().getFullYear() - 100);
+  return (birthdate > olderAge || birthdate < majority);
 }
 
 
 const array = [
-  {
-    
-  key: firstName,
+  
+  {key: firstName,
   fn:()=>validateFirstname(firstName),
-  el: errorMessageFirstname,
+  el: errorMessageFirstname,},
   
-  key: lastName,
+  {key: lastName,
   fn:()=>validateLastname(lastName),
-  el: errorMessageLastname,
+  el: errorMessageLastname,},
 
-  key: email,
+  {key: email,
   fn:()=>validateEmail(email),
-  el: errorMessageEmail,
+  el: errorMessageEmail,},
 
-  key: birthdate,
+  {key: birthdate,
   fn:()=>validateBirthdate(birthdate),
-  el: errorMessageBirthdate,
+  el: errorMessageBirthdate,},
 
-  key: checkbox,
-  fn:()=>validateCheckBox(checkbox),
-  el: errorMessageConditions,
-  
-  key: quantity,
+  {key: quantity,
   fn:()=>validateTournament(quantity),
-  el: errorMessageTournament,
-  }, 
+  el: errorMessageTournament,}, 
+
+  
+  {key: checkbox,
+    fn:()=>validateCheckBox(checkbox),
+    el: errorMessageConditions,},
 ];
 
 array.forEach((item)=>{
-  console.log(item.key, item.fn());
-  el.style.display = item.fn() ? "none" : "block";
+  item.el.style.display = item.fn() ? "none" : "block";
+  if (item.fn() === false){
+    e.preventDefault();  
+  }
 }); 
+
+
 
 })      
 
