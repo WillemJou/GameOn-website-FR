@@ -1,3 +1,4 @@
+// fonction apparition du menu de navigation responsive
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -31,6 +32,7 @@ const errorMessageConditions = document.getElementById("error_message_conditions
 const errorMessageLocations = document.getElementById("error_message_locations");
 const errorMessageTournament = document.getElementById("error_message_tournament");
 const errorMessageBirthdate = document.getElementById("error_message_birthdate");
+const confirmationMessage = document.getElementById("message_validation");
 
 
 
@@ -52,29 +54,44 @@ function closeModal(){
   modalbg.style.display = "none";
 }
 
+// TimeOut du message de confirmation
+const timeOutConfirmMess = setTimeout(closeConfirmationMessage, 3000);
+
+// launch confirmationMessage form 
+function launchConfirmationMessage (){
+  confirmationMessage.style.display = "flex";
+}
+
+//close confirmationMessage form
+function closeConfirmationMessage(){
+  confirmationMessage.style.display = "none";
+}
 
 
-
- 
-
+//fonction générale de soumission d'envoi de formulaire (évenement quand submit)
 validateForm.addEventListener("submit", (e)=>{
-  
+
+// fonction validation nom et prénom  
 const validateFirstname = (firstName) => {
   return firstName.textLength >= 2 ;
 }  
 const validateLastname = (lastName) => {
   return lastName.textLength >= 2 ;
 }
-const validateEmail = (email) => {
-  let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
- return (emailPattern.test(email));
-}
+
+// functions qui ne marchent pas en commentaire
+
+/*const validateEmail = (email) => {
+let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+return (emailPattern.test(email));
+}*/
 const validateCheckBox = (checkbox) =>{
   return (checkbox.checked === true)
 }
 const validateTournament = (quantity) => {
   return (quantity.value >= 1 && quantity.value < 99);
 }
+/*
 const validateBirthdate = (birthdate) => {
   var currentDate = new Date();   
   var majority = currentDate.setFullYear(new Date().getFullYear() - 18);
@@ -82,7 +99,8 @@ const validateBirthdate = (birthdate) => {
   return (birthdate > olderAge || birthdate < majority);
 }
 
-
+*/
+// tableau objets 
 const array = [
   
   {key: firstName,
@@ -93,34 +111,43 @@ const array = [
   fn:()=>validateLastname(lastName),
   el: errorMessageLastname,},
 
-  {key: email,
+/*  {key: email,
   fn:()=>validateEmail(email),
   el: errorMessageEmail,},
 
   {key: birthdate,
   fn:()=>validateBirthdate(birthdate),
   el: errorMessageBirthdate,},
-
+*/
   {key: quantity,
   fn:()=>validateTournament(quantity),
   el: errorMessageTournament,}, 
 
-  
+
   {key: checkbox,
     fn:()=>validateCheckBox(checkbox),
     el: errorMessageConditions,},
-];
+ 
+ ];
 
+// fonction affichage message d'erreur
 array.forEach((item)=>{
+  
   item.el.style.display = item.fn() ? "none" : "block";
+  // blocage envoi formulaire si erreur
   if (item.fn() === false){
-    e.preventDefault();  
+    e.preventDefault();
   }
-}); 
+  // apparition fenetre confirmation formulaire valide pendant 3s (trouver bonne combinaison)
+   else if (item.fn() === true){
+   validateForm.addEventListener("click", launchConfirmationMessage());
+}})
 
 
 
-})      
+
+}) 
+
 
 
 
