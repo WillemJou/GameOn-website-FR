@@ -71,34 +71,36 @@ function closeConfirmationMessage(){
 //fonction générale de soumission d'envoi de formulaire (évenement quand submit)
 validateForm.addEventListener("submit", (e)=>{
 
-// fonction validation nom et prénom  
+// fonction de validation  
 const validateFirstname = (firstName) => {
-  return firstName.textLength >= 2 ;
-}  
+  return firstName.value.length >= 2 ;
+}/*  
 const validateLastname = (lastName) => {
-  return lastName.textLength >= 2 ;
+  return lastName.value.length >= 2 ;
 }
 
-// functions qui ne marchent pas en commentaire
-
-/*const validateEmail = (email) => {
+const validateEmail = (email) => {
+// regex email
 let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-return (emailPattern.test(email));
-}*/
+return (emailPattern.test(email.value));
+}
 const validateCheckBox = (checkbox) =>{
   return (checkbox.checked === true)
 }
 const validateTournament = (quantity) => {
   return (quantity.value >= 1 && quantity.value < 99);
 }
-/*
-const validateBirthdate = (birthdate) => {
-  var currentDate = new Date();   
-  var majority = currentDate.setFullYear(new Date().getFullYear() - 18);
-  var olderAge = currentDate.setFullYear(new Date().getFullYear() - 100);
-  return (birthdate > olderAge || birthdate < majority);
-}
 
+const validateBirthdate = (birthdate) => {
+  console.log(birthdate.value);
+  var currentDate = new Date();   
+  var majorityDate = currentDate.setFullYear(new Date().getFullYear() - 18);
+  var olderAgeDate = currentDate.setFullYear(new Date().getFullYear() - 100);
+  return (
+    new Date(birthdate.value) > new Date(olderAgeDate) && 
+    new Date(birthdate.value) < new Date(majorityDate)
+    );  
+}
 */
 // tableau objets 
 const array = [
@@ -106,45 +108,46 @@ const array = [
   {key: firstName,
   fn:()=>validateFirstname(firstName),
   el: errorMessageFirstname,},
-  
+  /*
   {key: lastName,
   fn:()=>validateLastname(lastName),
   el: errorMessageLastname,},
 
-/*  {key: email,
+  {key: email,
   fn:()=>validateEmail(email),
   el: errorMessageEmail,},
 
   {key: birthdate,
   fn:()=>validateBirthdate(birthdate),
-  el: errorMessageBirthdate,},
-*/
+  el: errorMessageBirthdate,},  
+
   {key: quantity,
   fn:()=>validateTournament(quantity),
   el: errorMessageTournament,}, 
 
-
   {key: checkbox,
     fn:()=>validateCheckBox(checkbox),
     el: errorMessageConditions,},
- 
+    */
  ];
 
+
+let isOk = true;
 // fonction affichage message d'erreur
 array.forEach((item)=>{
-  
-  item.el.style.display = item.fn() ? "none" : "block";
+  let validateInput = item.fn();
+  item.el.style.display = validateInput ? "none" : "block";
   // blocage envoi formulaire si erreur
-  if (item.fn() === false){
+  if (validateInput === false){
+    isOk = false;
     e.preventDefault();
-  }
-  // apparition fenetre confirmation formulaire valide pendant 3s (trouver bonne combinaison)
-   else if (item.fn() === true){
-   validateForm.addEventListener("click", launchConfirmationMessage());
-}})
-
-
-
+  } 
+})
+ // apparition fenetre confirmation formulaire valide pendant 3s
+ if (
+   isOk){ 
+  launchConfirmationMessage();
+ }
 
 }) 
 
