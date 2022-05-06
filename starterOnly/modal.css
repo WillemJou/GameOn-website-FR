@@ -501,6 +501,7 @@ footer {
 }
 .space_title{
   display: none;
+  height: 2px;
 }
 
 .message-validation{
@@ -579,7 +580,12 @@ footer {
 @media screen and (max-width: 450px) {
 .hero-headline{
   max-width: 80vw;
-}}
+}
+.display_title{
+text-align: inherit;
+font-size: 2.8rem;
+}
+}
 @keyframes modalopen {
   from {
     opacity: 0;
@@ -589,4 +595,6 @@ footer {
     opacity: 1;
   }
 }
+
+
 

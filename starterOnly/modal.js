@@ -1,3 +1,4 @@
+
 // fonction apparition du menu de navigation responsive
 function editNav() {
   var x = document.getElementById("myTopnav");
@@ -37,7 +38,6 @@ const confirmationMessage = document.getElementById("message_validation");
 
 
 
-
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -54,31 +54,17 @@ function closeModal(){
   modalbg.style.display = "none";
 }
 
-// TimeOut du message de confirmation
-const timeOutConfirmMess = setTimeout(closeConfirmationMessage, 3000);
-
-// launch confirmationMessage form 
-function launchConfirmationMessage (){
-  confirmationMessage.style.display = "flex";
-}
-
-//close confirmationMessage form
-function closeConfirmationMessage(){
-  confirmationMessage.style.display = "none";
-}
 
 
-//fonction générale de soumission d'envoi de formulaire (évenement quand submit)
-validateForm.addEventListener("submit", (e)=>{
 
 // fonction de validation  
 const validateFirstname = (firstName) => {
-  return firstName.value.length >= 2 ;
-}/*  
+  return firstName.value.length >= 2;
+}  
 const validateLastname = (lastName) => {
-  return lastName.value.length >= 2 ;
+  return lastName.value.length >= 2;
 }
-
+/*
 const validateEmail = (email) => {
 // regex email
 let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -102,17 +88,20 @@ const validateBirthdate = (birthdate) => {
     );  
 }
 */
+
+
+
 // tableau objets 
 const array = [
   
   {key: firstName,
   fn:()=>validateFirstname(firstName),
   el: errorMessageFirstname,},
-  /*
+  
   {key: lastName,
   fn:()=>validateLastname(lastName),
   el: errorMessageLastname,},
-
+/*
   {key: email,
   fn:()=>validateEmail(email),
   el: errorMessageEmail,},
@@ -131,24 +120,41 @@ const array = [
     */
  ];
 
+ 
+ //fonction générale de soumission d'envoi de formulaire (évenement quand submit)
+ validateForm.addEventListener("submit", (e)=>{
 
-let isOk = true;
-// fonction affichage message d'erreur
-array.forEach((item)=>{
-  let validateInput = item.fn();
-  item.el.style.display = validateInput ? "none" : "block";
-  // blocage envoi formulaire si erreur
-  if (validateInput === false){
-    isOk = false;
-    e.preventDefault();
-  } 
-})
- // apparition fenetre confirmation formulaire valide pendant 3s
- if (
-   isOk){ 
-  launchConfirmationMessage();
- }
+   let isOk = true;
+   let self = this;
+  
+   // appel objets tableau pour fonction affichage message d'erreur
+   array.forEach((item)=>{
+     let validateInput = item.fn();
+     // ternaire d'affichage messages d'erreur
+     item.el.style.display = validateInput ? "none" : "block";
+     // blocage envoi formulaire si erreur
+     if (validateInput === false){
+       isOk = false;
+       e.preventDefault();
+      } 
+    
+    })
+    
+    // fonction affichage modale de confirmation formulaire avec timeOut 
+    function confirmMessageForm () {
+      confirmationMessage.style.display = "flex";
+      setTimeout(() => {
+        confirmationMessage.style.display = "none";
+      }, 3000);
+    }
 
+    
+    // apparition fenetre confirmation si formulaire ok
+    if (isOk){ 
+      confirmMessageForm();
+      closeModal();
+    }
+ 
 }) 
 
 
