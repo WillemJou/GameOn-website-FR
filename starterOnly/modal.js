@@ -57,14 +57,14 @@ function closeModal(){
 
 
 
-// fonction de validation  
+// fonction de validation name
 const validateFirstname = (firstName) => {
   return firstName.value.length >= 2;
 }  
 const validateLastname = (lastName) => {
   return lastName.value.length >= 2;
 }
-/*
+
 const validateEmail = (email) => {
 // regex email
 let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -87,7 +87,7 @@ const validateBirthdate = (birthdate) => {
     new Date(birthdate.value) < new Date(majorityDate)
     );  
 }
-*/
+
 
 
 
@@ -101,7 +101,7 @@ const array = [
   {key: lastName,
   fn:()=>validateLastname(lastName),
   el: errorMessageLastname,},
-/*
+
   {key: email,
   fn:()=>validateEmail(email),
   el: errorMessageEmail,},
@@ -117,15 +117,15 @@ const array = [
   {key: checkbox,
     fn:()=>validateCheckBox(checkbox),
     el: errorMessageConditions,},
-    */
+    
  ];
 
  
  //fonction générale de soumission d'envoi de formulaire (évenement quand submit)
- validateForm.addEventListener("submit", (e)=>{
+ sendButtonValidation.addEventListener("click", (e)=>{
 
    let isOk = true;
-   let self = this;
+   
   
    // appel objets tableau pour fonction affichage message d'erreur
    array.forEach((item)=>{
@@ -153,6 +153,11 @@ const array = [
     if (isOk){ 
       confirmMessageForm();
       closeModal();
+      setTimeout(() => {
+        validateForm.submit();
+      }, 3000);
+
+
     }
  
 }) 
