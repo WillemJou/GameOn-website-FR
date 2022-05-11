@@ -83,8 +83,8 @@ const validateBirthdate = (birthdate) => {
   var majorityDate = currentDate.setFullYear(new Date().getFullYear() - 18);
   var olderAgeDate = currentDate.setFullYear(new Date().getFullYear() - 100);
   return (
-    new Date(birthdate.value) > new Date(olderAgeDate) && 
-    new Date(birthdate.value) < new Date(majorityDate)
+    new Date(birthdate.value) > (olderAgeDate) && 
+    new Date(birthdate.value) < (majorityDate)
     );  
 }
 
@@ -140,22 +140,24 @@ const array = [
     
     })
     
-    // fonction affichage modale de confirmation formulaire avec timeOut 
-    function confirmMessageForm () {
+    // fonction affichage modale de confirmation formulaire avec timeOut delay soumission form
+    let confirmMessageForm = ()  => {
       confirmationMessage.style.display = "flex";
       setTimeout(() => {
         confirmationMessage.style.display = "none";
       }, 3000);
-    }
-
-    
-    // apparition fenetre confirmation si formulaire ok
-    if (isOk){ 
-      confirmMessageForm();
-      closeModal();
       setTimeout(() => {
         validateForm.submit();
       }, 3000);
+      
+    }
+
+    
+    // apparition fenetre confirmation et envoi formulaire si ok
+    if (isOk){ 
+      closeModal();
+      confirmMessageForm();
+     
 
 
     }
